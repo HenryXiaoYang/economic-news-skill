@@ -188,14 +188,14 @@ async def fetch_toplist_details():
             headers = {
                 "x-app-id": "bVBF4FyRTn5NJF5n",
                 "x-version": "1.0.0",
-                "Origin": "https://www.economic_news.com"
+                "Origin": "https://www.jin10.com"
             }
             
             for item in state.top_list:
                 fid = item.get('flash_id', '')
                 if fid and fid not in state.top_list_details:
                     # 用 max_id 获取该条及之前的快讯
-                    url = f"https://flash-api.economic_news.com/get_flash_list?channel=-8200&vip=1&max_id={fid}"
+                    url = f"https://flash-api.jin10.com/get_flash_list?channel=-8200&vip=1&max_id={fid}"
                     resp = await client.get(url, headers=headers, timeout=10)
                     data = resp.json()
                     
@@ -217,7 +217,7 @@ async def fetch_toplist_details():
 async def load_trading_clock():
     try:
         async with httpx.AsyncClient() as client:
-            resp = await client.get("https://cdn.economic_news.com/trading-clock/new/data.json", timeout=10)
+            resp = await client.get("https://cdn.jin10.com/trading-clock/new/data.json", timeout=10)
             data = resp.json()
             state.trading_clock = data.get('data', {})
             markets = []
@@ -322,8 +322,8 @@ async def start_browser():
     
     state.page = await context.new_page()
     
-    logger.info("Loading economic_news.com...")
-    await state.page.goto("https://www.economic_news.com/", wait_until="domcontentloaded", timeout=30000)
+    logger.info("Loading jin10.com...")
+    await state.page.goto("https://www.jin10.com/", wait_until="domcontentloaded", timeout=30000)
     await asyncio.sleep(8)
     
     try:
@@ -510,7 +510,7 @@ async def search(q: str, limit: int = 20):
         context = await state.browser.new_context()
         search_page = await context.new_page()
         
-        search_url = f"https://search.economic_news.com/?keyword={quote(q)}"
+        search_url = f"https://search.jin10.com/?keyword={quote(q)}"
         await search_page.goto(search_url, wait_until="domcontentloaded", timeout=20000)
         await asyncio.sleep(3)
         
