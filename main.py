@@ -273,7 +273,7 @@ async def poll_data():
                     if fid and fid not in state.top_list_details:
                         # 从 flash_list 里找详情
                         for f in state.flash_list:
-                            if f['id'] == fid:
+                            if f['_id'] == fid:
                                 state.top_list_details[fid] = f.get('content', '')
                                 break
                 logger.info(f"TopList updated: {len(state.top_list)} items")
@@ -287,7 +287,7 @@ async def poll_data():
             
             flashs = data.get('flashs', [])
             if flashs:
-                existing_ids = {f['id'] for f in state.flash_list}
+                existing_ids = {f['_id'] for f in state.flash_list}
                 new_count = 0
                 for flash in reversed(flashs):
                     flash_id = flash.get('id', '')
