@@ -14,7 +14,7 @@ SERVICE_URL = "http://localhost:8765"
 async def send_notification(message: str, target: str, channel: str = "feishu"):
     """通过 OpenClaw CLI 发送通知"""
     import subprocess
-    cmd = ["openclaw", "send", "-c", channel, "-t", target, message]
+    cmd = ["openclaw", "message", "send", "-c", channel, "-t", target, "-m", message]
     subprocess.run(cmd, capture_output=True)
 
 async def listen_sse(target: str, channel: str = "feishu", important_only: bool = False):
