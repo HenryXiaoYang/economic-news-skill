@@ -1,0 +1,2 @@
+name: economic-news-skill
+description: Economic news service powered by Jin10. Get top events with /top10, latest news with /latest, real-time updates with /events, category news with /categories + /category/{id}, market status with /clock. Service at http://localhost:8765
