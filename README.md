@@ -1,3 +1,5 @@
+[中文版本](README_CN.md)
+
 # Economic News Skill
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
