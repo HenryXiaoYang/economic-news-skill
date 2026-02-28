@@ -383,15 +383,22 @@ async def index():
     }
 
 @app.get("/events")
-async def sse_events(request: Request):
+async def sse_events(request: Request, history: bool = True):
+    """
+    SSE 实时订阅
+    
+    Args:
+        history: 是否推送历史消息，默认 True。设为 False 则只推送连接后的新消息
+    """
     async def event_generator():
         queue = asyncio.Queue()
         state.sse_clients.add(queue)
         try:
-            if state.top_list:
-                yield f"event: toplist\ndata: {json.dumps({'items': state.top_list}, ensure_ascii=False)}\n\n"
-            for flash in list(state.flash_list)[:20]:
-                yield f"event: flash\ndata: {json.dumps(flash, ensure_ascii=False)}\n\n"
+            if history:
+                if state.top_list:
+                    yield f"event: toplist\ndata: {json.dumps({'items': state.top_list}, ensure_ascii=False)}\n\n"
+                for flash in list(state.flash_list)[:20]:
+                    yield f"event: flash\ndata: {json.dumps(flash, ensure_ascii=False)}\n\n"
             while True:
                 if await request.is_disconnected():
                     break

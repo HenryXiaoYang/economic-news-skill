@@ -14,7 +14,7 @@ SERVICE_URL = "http://localhost:8765"
 async def send_notification(message: str, target: str, channel: str = "feishu"):
     """通过 OpenClaw CLI 发送通知"""
     import subprocess
-    cmd = ["openclaw", "message", "send", "-c", channel, "-t", target, "-m", message]
+    cmd = ["openclaw", "message", "send", "--channel", channel, "--target", target, "--message", message]
     subprocess.run(cmd, capture_output=True)
 
 async def listen_sse(target: str, channel: str = "feishu", important_only: bool = False):
@@ -25,7 +25,7 @@ async def listen_sse(target: str, channel: str = "feishu", important_only: bool 
     print("-" * 40)
     
     async with httpx.AsyncClient(timeout=None) as client:
-        async with client.stream("GET", f"{SERVICE_URL}/events") as response:
+        async with client.stream("GET", f"{SERVICE_URL}/events?history=false") as response:
             buffer = ""
             async for chunk in response.aiter_text():
                 buffer += chunk
