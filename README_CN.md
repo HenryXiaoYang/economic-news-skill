@@ -109,6 +109,39 @@ python3 notify.py -t "user:ou_xxx" -c feishu --important  # 仅重要快讯
 
 服务默认运行在 8765 端口，可修改 `main.py` 更改。
 
+
+## AI 安装指南
+
+供 AI 智能体安装此 skill 的分步教程：
+
+```
+1. 克隆仓库到 OpenClaw skills 目录：
+   cd ~/.openclaw/skills
+   git clone https://github.com/HenryXiaoYang/economic-news-skill.git
+   cd economic-news-skill
+
+2. 创建并激活虚拟环境：
+   python3 -m venv .venv
+   source .venv/bin/activate
+
+3. 安装 Python 依赖：
+   pip install -r requirements.txt
+
+4. 安装 Playwright 浏览器：
+   playwright install chromium
+
+5. 后台启动服务：
+   nohup python3 main.py > /tmp/economic-news.log 2>&1 &
+
+6. 验证服务运行：
+   curl http://localhost:8765/health
+
+7. （可选）启动实时通知监听：
+   source .venv/bin/activate
+   pip install httpx sseclient-py
+   nohup python3 notify.py -t "user:ou_xxx" -c feishu > /tmp/economic-news-notify.log 2>&1 &
+```
+
 ## 许可证
 
 [MIT](LICENSE)

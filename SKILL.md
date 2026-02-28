@@ -639,13 +639,39 @@ data: {"time": "2026-02-28 21:30:53", "important": true, "title": "快讯标题"
 
 ---
 
+## 安装
+
+### 环境要求
+
+- Python 3.10+
+- Playwright
+
+### 安装步骤
+
+```bash
+# 克隆仓库到 skills 目录
+cd ~/.openclaw/skills
+git clone https://github.com/HenryXiaoYang/economic-news-skill.git
+cd economic-news-skill
+
+# 创建虚拟环境
+python3 -m venv .venv
+source .venv/bin/activate
+
+# 安装依赖
+pip install -r requirements.txt
+playwright install chromium
+```
+
+---
+
 ## 服务管理
 
 ### 启动
 
 ```bash
 cd ~/.openclaw/skills/economic-news-skill
-source /tmp/.venv/bin/activate
+source .venv/bin/activate
 nohup python3 main.py > /tmp/economic-news.log 2>&1 &
 ```
 

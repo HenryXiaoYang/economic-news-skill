@@ -111,6 +111,39 @@ python3 notify.py -t "user:ou_xxx" -c feishu --important  # important only
 
 The service runs on port 8765 by default. Modify `main.py` to change.
 
+
+## AI Installation Guide
+
+Step-by-step instructions for AI agents to install this skill:
+
+```
+1. Clone the repository to OpenClaw skills directory:
+   cd ~/.openclaw/skills
+   git clone https://github.com/HenryXiaoYang/economic-news-skill.git
+   cd economic-news-skill
+
+2. Create and activate virtual environment:
+   python3 -m venv .venv
+   source .venv/bin/activate
+
+3. Install Python dependencies:
+   pip install -r requirements.txt
+
+4. Install Playwright browser:
+   playwright install chromium
+
+5. Start the service (background):
+   nohup python3 main.py > /tmp/economic-news.log 2>&1 &
+
+6. Verify service is running:
+   curl http://localhost:8765/health
+
+7. (Optional) Start real-time notification listener:
+   source .venv/bin/activate
+   pip install httpx sseclient-py
+   nohup python3 notify.py -t "user:ou_xxx" -c feishu > /tmp/economic-news-notify.log 2>&1 &
+```
+
 ## License
 
 [MIT](LICENSE)
