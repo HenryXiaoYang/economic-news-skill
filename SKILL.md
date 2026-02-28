@@ -76,8 +76,14 @@ openclaw cron add \
 使用 notify.py 脚本监听 SSE：
 
 ```bash
-# 启动实时监听（后台运行）
+# 首次运行需要安装依赖
 cd ~/.openclaw/skills/economic-news-skill
+python3 -m venv .venv
+source .venv/bin/activate
+pip install httpx sseclient-py
+
+# 启动实时监听（后台运行）
+source .venv/bin/activate  # 如已激活可跳过
 nohup python3 notify.py -t "user:ou_xxx" -c feishu > /tmp/economic-news-notify.log 2>&1 &
 
 # 仅通知重要快讯
